@@ -55,6 +55,28 @@
                     </ul>
                 </li>
                 @endcan
+                @can('item')
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <iconify-icon icon="hugeicons:invoice-03" class="menu-icon"></iconify-icon>
+                        <span>Items</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        @can('create item')
+                        <li>
+                            <a href="{{ route('items.create') }}">
+                                <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Item
+                            </a>
+                        </li>
+                        @endcan
+                        <li>
+                            <a href="{{ route('items.index') }}">
+                                <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Item List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
                 @can('role')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
