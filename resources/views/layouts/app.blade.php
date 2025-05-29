@@ -33,6 +33,28 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                @can('venue')
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <i class="ri-list-indefinite text-xl me-14 d-flex w-auto"></i>
+                        <span>Venue</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        @can('create venue')
+                        <li>
+                            <a href="{{ route('venues.create') }}">
+                                <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Venue
+                            </a>
+                        </li>
+                        @endcan
+                        <li>
+                            <a href="{{ route('venues.index') }}">
+                                <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Venue List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
                 @can('role')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
