@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,4 +29,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('venues', VenueController::class);
     Route::resource('items', ItemController::class);
+    Route::resource('employees', EmployeeController::class);
 });

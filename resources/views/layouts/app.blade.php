@@ -1,3 +1,4 @@
+<!-- https://wowdash.wowtheme7.com/demo/index.html -->
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -72,6 +73,28 @@
                         <li>
                             <a href="{{ route('items.index') }}">
                                 <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Item List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+                @can('employee')
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <iconify-icon icon="flowbite:users-group-outline" class="menu-icon"></iconify-icon>
+                        <span>Employees</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        @can('create employee')
+                        <li>
+                            <a href="{{ route('employees.create') }}">
+                                <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Employee
+                            </a>
+                        </li>
+                        @endcan
+                        <li>
+                            <a href="{{ route('employees.index') }}">
+                                <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Employee List
                             </a>
                         </li>
                     </ul>
