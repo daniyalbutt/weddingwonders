@@ -15471,6 +15471,7 @@ td.fc-header-center {
 .sidebar-menu li a .menu-icon {
   font-size: 1.125rem;
   margin-inline-end: 0.5rem;
+  width: 24px;
 }
 
 @media (min-width: 1650px) {
@@ -15593,4 +15594,8 @@ table.dataTable th.dt-type-numeric, table.dataTable td.dt-type-numeric{
 
 .role-wrapper li input {
     margin-right: 10px;
+}
+
+.dropify-wrapper .dropify-message p {
+    font-size: 18px;
 }

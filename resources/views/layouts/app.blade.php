@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/dataTables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/prism.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
+    @stack('styles')
 </head>
 <body>
     <aside class="sidebar">
@@ -37,7 +39,7 @@
                 @can('venue')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
-                        <i class="ri-list-indefinite text-xl me-14 d-flex w-auto"></i>
+                        <i class="ri-list-indefinite text-xl me-14 d-flex menu-icon"></i>
                         <span>Venue</span>
                     </a>
                     <ul class="sidebar-submenu">
@@ -95,6 +97,28 @@
                         <li>
                             <a href="{{ route('employees.index') }}">
                                 <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Employee List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+                @can('portfolio')
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <i class="ri-image-circle-fill text-xl me-14 d-flex menu-icon"></i>
+                        <span>Portfolios</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        @can('create portfolio')
+                        <li>
+                            <a href="{{ route('portfolios.create') }}">
+                                <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Portfolio
+                            </a>
+                        </li>
+                        @endcan
+                        <li>
+                            <a href="{{ route('portfolios.index') }}">
+                                <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Portfolio List
                             </a>
                         </li>
                     </ul>
@@ -299,6 +323,7 @@
     <script src="{{ asset('js/iconify-icon.min.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/prism.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $(document).ready(function(){

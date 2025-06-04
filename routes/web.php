@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\VenueController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PortfolioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,4 +31,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('venues', VenueController::class);
     Route::resource('items', ItemController::class);
     Route::resource('employees', EmployeeController::class);
+    Route::resource('portfolios', PortfolioController::class);
+    Route::post('portfolio/delete', [PortfolioController::class, 'deleteImage'])->name('portfolio.delete');
 });
