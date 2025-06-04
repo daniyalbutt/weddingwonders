@@ -116,4 +116,10 @@ class ItemController extends Controller
         $data->save();
         return redirect()->back()->with('success', 'Item Deleted Successfully');
     }
+
+    public function itemList(Request $request){
+        $q = $request->q;
+        $data = Item::where('name', 'like', '%' . $q . '%')->get();
+        return response()->json($data);
+    }
 }

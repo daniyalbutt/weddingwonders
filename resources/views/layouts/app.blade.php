@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/dataTables.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/prism.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
     @stack('styles')
 </head>
@@ -102,6 +103,24 @@
                     </ul>
                 </li>
                 @endcan
+                <li class="dropdown">
+                    <a href="javascript:void(0)">
+                        <i class="ri-lock-star-fill text-xl me-14 d-flex menu-icon"></i>
+                        <span>Events</span>
+                    </a>
+                    <ul class="sidebar-submenu">
+                        <li>
+                            <a href="{{ route('events.create') }}">
+                                <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Event
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('events.index') }}">
+                                <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Event List
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @can('portfolio')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
@@ -324,6 +343,8 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/prism.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $(document).ready(function(){

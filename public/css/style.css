@@ -15599,3 +15599,27 @@ table.dataTable th.dt-type-numeric, table.dataTable td.dt-type-numeric{
 .dropify-wrapper .dropify-message p {
     font-size: 18px;
 }
+
+.select2-container {
+    width: 100% !important;
+}
+
+.select2-container .selection{
+    width: 100% !important;
+}
+
+.select2-container .select2-selection--single {
+    height: 44px;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered{
+  overflow: visible;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    overflow: visible;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 44px;
+}
