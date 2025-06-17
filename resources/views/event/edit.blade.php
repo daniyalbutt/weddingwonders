@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-24">
-    <h6 class="fw-semibold mb-0">Add Event</h6>
+    <h6 class="fw-semibold mb-0">Edit Event - {{ $data->name }}</h6>
     <ul class="d-flex align-items-center gap-2">
         <li class="fw-medium">
             <a href="index.html" class="d-flex align-items-center gap-1 hover-text-primary">
@@ -13,7 +13,7 @@
         <li>-</li>
         <li class="fw-medium">Events</li>
         <li>-</li>
-        <li class="fw-medium">Add Event</li>
+        <li class="fw-medium">Edit Event - {{ $data->name }}</li>
     </ul>
 </div>
 
@@ -21,11 +21,12 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5 class="card-title mb-0">Event Form</h5>
+                <h5 class="card-title mb-0">Edit Event Form</h5>
             </div>
             <div class="card-body">
-		        <form class="form" method="post" action="{{ route('events.store') }}">
+		        <form class="form" method="post" action="{{ route('events.update', $data->id) }}">
 		        	@csrf
+					@method('PUT')
 		            <div class="box-body">
 						@if($errors->any())
 							{!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
@@ -39,58 +40,48 @@
 		                    <div class="col-md-6">
 		                        <div class="form-group">
 		                            <label class="form-label">Name</label>
-		                            <input type="text" class="form-control" name="name" value="{{ $template != null ? $template->name : '' }}" required>
+		                            <input type="text" class="form-control" name="name" value="{{ old('name', $data->name) }}" required>
 		                        </div>
 		                    </div>
 							<div class="col-md-6">
 		                        <div class="form-group">
 		                            <label class="form-label">Date</label>
-		                            <input type="date" class="form-control" name="date" value="{{ $template != null ? $template->event_date : '' }}" required>
+		                            <input type="date" class="form-control" name="date" value="{{ old('date', $data->event_date) }}" required>
 		                        </div>
 		                    </div>
 							<div class="col-md-6">
 		                        <div class="form-group">
 		                            <label class="form-label">Venue</label>
-		                            <input type="text" class="form-control" name="venue" value="{{ $template != null ? $template->venue : '' }}" required>
+		                            <input type="text" class="form-control" name="venue" value="{{ old('venue', $data->venue) }}" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-3">
+							<div class="col-md-6">
 		                        <div class="form-group">
 		                            <label class="form-label">Assign Employee</label>
-									<select name="user_id" id="user_id" class="form-control" required>
+									<select name="user_id" id="user_id" class="form-control">
 										<option value="">Select Employee</option>
 										@foreach($employees as $key => $value)
-										<option value="{{ $value->id }}">{{ $value->name }}</option>
+										<option value="{{ $value->id }}" {{ $value->id == $data->user_id ? 'selected' : ''  }}>{{ $value->name }}</option>
 										@endforeach
 									</select>
 		                        </div>
 		                    </div>
-							<div class="col-md-3">
-		                        <div class="form-group">
-		                            <label class="form-label">Mark as Template</label>
-									<select name="template" id="template" class="form-control">
-										<option value="0">NO</option>
-										<option value="1">YES</option>
-									</select>
-								</div>
-							</div>
 							<div class="col-md-12 mt-40">
 								<hr>
 							</div>
-							@if($template != null)
-							@foreach($template->template_items as $key => $value)
+							@foreach($data->event_items as $key => $value)
 							<div class="col-md-12">
 								<div class="row mb-3">
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="form-label">Items</label>
-											<input type="text" class="form-control" name="old_items[{{$value->item->id}}]" value="{{ $value->item->name }}" readonly>
+											<input type="text" class="form-control" name="old_items[{{$value->id}}]" value="{{ $value->item->name }}" readonly>
 										</div>
 									</div>
 									<div class="col-md-5">
 										<div class="form-group">
 											<label class="form-label">Quantity ( Remaining {{ $value->total_remaining() }} )</label>
-											<input type="number" class="form-control" name="old_quantity[{{$value->item->id}}]" value="{{ $value->quantity }}" max="{{ $value->quantity + $value->total_remaining() }}" onfocusout="checkQuantity(this)" required>
+											<input type="number" class="form-control" onfocusout="checkQuantity(this)" name="old_quantity[{{$value->id}}]" max="{{ $value->quantity + $value->total_remaining() }}" value="{{ $value->quantity }}" required>
 										</div>
 									</div>
 									<div class="col-md-2">
@@ -99,11 +90,10 @@
 								</div>
 							</div>
 							@endforeach
-							@endif
 							<div class="repeater">
 								<div data-repeater-list="items">
 									<div data-repeater-item>
-										<div class="row mb-10">
+										<div class="row mb-3">
 											<div class="col-md-5">
 												<div class="form-group">
 													<label class="form-label">Items</label>
@@ -114,8 +104,8 @@
 											</div>
 											<div class="col-md-5">
 												<div class="form-group">
-													<label class="form-label quantity-show">Quantity <span></span></label>
-													<input type="number" name="quantity" class="form-control quantity" onfocusout="checkQuantity(this)">
+													<label class="form-label">Quantity</label>
+													<input type="number" name="quantity" class="form-control">
 												</div>
 											</div>
 											<div class="col-md-2">
@@ -129,7 +119,7 @@
 								</div>
 							</div>
 							<div class="col-12">
-								<button type="submit" class="btn btn-primary-600 btn-sm">Save Event</button>
+								<button type="submit" class="btn btn-primary-600 btn-sm">Update Event</button>
 							</div>
 		                </div>
 		            </div>
@@ -143,6 +133,25 @@
 
 @push('scripts')
 <script>
+	function deleteItem(a, id){
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+		var btn = a;
+		$.ajax({
+			type:'POST',
+			url:"{{ route('event-item.delete') }}",
+			data:{id:id},
+           	success:function(data){
+				if(data.status){
+					$(btn).parent().parent().parent().remove();
+				}
+			}
+        });
+	}
+
 	$('.item-data').select2({
   		ajax: {
     		url: "{{ route('item.list') }}",
@@ -160,23 +169,6 @@
             	};
 			}
   		}
-	}).on('change', function (e) {
-		var selected_select2 = this;
-		$.ajax({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			},
-			url : "{{ route('item.quantity') }}",
-			data : {'id' : this.value},
-			type : 'GET',
-			dataType : 'json',
-			success : function(result){
-				if(result.status){
-					$(selected_select2).parent().parent().parent().find('.quantity-show span').text('( Remaining '+result.qty+' )');
-					$(selected_select2).parent().parent().parent().find('.quantity').attr('max', result.qty);
-				}
-			}
-		});
 	});
 	$('.repeater').repeater({
 		show: function () {
@@ -199,24 +191,7 @@
 						};
 					}
 				}
-    		}).on('change', function (e) {
-				var selected_select2 = this;
-				$.ajax({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-					},
-					url : "{{ route('item.quantity') }}",
-					data : {'id' : this.value},
-					type : 'GET',
-					dataType : 'json',
-					success : function(result){
-						if(result.status){
-							$(selected_select2).parent().parent().parent().find('.quantity-show span').text('( Remaining '+result.qty+')');
-							$(selected_select2).parent().parent().parent().find('.quantity').attr('max', result.qty);
-						}
-					}
-				});
-			});;
+    		});
     		$(this).find('.select2-container').css('width','100%');
   		},
 	});

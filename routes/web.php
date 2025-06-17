@@ -8,6 +8,8 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\AssignEventController;
+use App\Http\Controllers\TemplateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,8 +22,8 @@ use App\Http\Controllers\EventController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return redirect()->route('login');
+})->middleware('auth');
 
 Auth::routes(['register' => false]);
 
@@ -31,9 +33,14 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('venues', VenueController::class);
     Route::resource('items', ItemController::class);
+    Route::get('item/quantity', [ItemController::class, 'itemQuantity'])->name('item.quantity');
     Route::resource('employees', EmployeeController::class);
     Route::resource('portfolios', PortfolioController::class);
     Route::post('portfolio/delete', [PortfolioController::class, 'deleteImage'])->name('portfolio.delete');
     Route::resource('events', EventController::class);
+    Route::resource('templates', TemplateController::class);
     Route::get('item/list', [ItemController::class, 'itemList'])->name('item.list');
+    Route::post('event-item/delete', [EventController::class, 'deleteEventItem'])->name('event-item.delete');
+    Route::resource('assign/event', AssignEventController::class);
+    Route::post('template-item/delete', [TemplateController::class, 'deleteTemplateItem'])->name('template-item.delete');
 });

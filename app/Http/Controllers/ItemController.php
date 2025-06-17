@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\EventsItems;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -121,5 +122,20 @@ class ItemController extends Controller
         $q = $request->q;
         $data = Item::where('name', 'like', '%' . $q . '%')->get();
         return response()->json($data);
+    }
+
+    public function itemQuantity(Request $request){
+        $id = $request->id;
+        $data = Item::find($id);
+        $event_item = EventsItems::where('item_id', $id)->get();
+        $event_qty = 0;
+        foreach($event_item as $key => $value){
+            if($value->event->status == 0){
+                $event_qty += $value->quantity;
+            }
+        }
+        $total_qty = $data->quantity - $event_qty;
+        return response()->json(['status' => true, 'qty' => $total_qty]);
+        
     }
 }

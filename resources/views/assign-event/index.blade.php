@@ -15,7 +15,6 @@
         <li class="fw-medium">Event List</li>
     </ul>
 </div>
-
 <!-- Main content -->
 <div class="card basic-data-table">
     <div class="card-header">
@@ -51,22 +50,13 @@
                     <td>{{ $value->user->name }}</td>
                     <td><span class="badge text-sm fw-semibold rounded-pill {{ $value->get_status_class() }} px-20 py-9 radius-4 text-white badge-sm">{{ $value->get_status() }}</span></td>
                     <td>
+                        @can('show assign-event')
                         <div class="d-flex">
-                            @can('edit event')
-                            <a href="{{ route('events.edit', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                <iconify-icon icon="lucide:edit"></iconify-icon>
+                            <a href="{{ route('event.show', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                <iconify-icon icon="lucide:eye"></iconify-icon>
                             </a>
-                            @endcan
-                            @can('delete event')
-                            <form action="{{ route('events.destroy', $value->id) }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-32-px h-32-px bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                    <iconify-icon icon="mingcute:delete-2-line"></iconify-icon>
-                                </button>
-                            </form>
-                            @endcan
                         </div>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

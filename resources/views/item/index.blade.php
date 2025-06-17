@@ -54,12 +54,12 @@
                     <td>{{ $value->row }}</td>
                     <td>
                         <div class="d-flex">
-                            @can('edit venue')
+                            @can('edit item')
                             <a href="{{ route('items.edit', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                 <iconify-icon icon="lucide:edit"></iconify-icon>
                             </a>
                             @endcan
-                            @can('delete venue')
+                            @can('delete item')
                             <form action="{{ route('items.destroy', $value->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')

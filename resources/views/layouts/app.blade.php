@@ -103,17 +103,20 @@
                     </ul>
                 </li>
                 @endcan
+                @can('event')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
                         <i class="ri-lock-star-fill text-xl me-14 d-flex menu-icon"></i>
                         <span>Events</span>
                     </a>
                     <ul class="sidebar-submenu">
+                        @can('create event')
                         <li>
                             <a href="{{ route('events.create') }}">
                                 <i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i> Add Event
                             </a>
                         </li>
+                        @endcan
                         <li>
                             <a href="{{ route('events.index') }}">
                                 <i class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Event List
@@ -121,6 +124,15 @@
                         </li>
                     </ul>
                 </li>
+                @endcan
+                @can('template')
+                <li>
+                    <a href="{{ route('templates.index') }}">
+                        <i class="ri-lock-star-line text-xl me-14 d-flex menu-icon"></i>
+                        <span>Templates</span>
+                    </a>
+                </li>
+                @endcan
                 @can('portfolio')
                 <li class="dropdown">
                     <a href="javascript:void(0)">
@@ -183,6 +195,14 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+                @endcan
+                @can('assign-event')
+                <li>
+                    <a href="{{ route('event.index') }}">
+                        <i class="ri-lock-star-fill text-xl me-14 d-flex menu-icon"></i>
+                        <span>Events</span>
+                    </a>
                 </li>
                 @endcan
             </ul>
@@ -331,7 +351,7 @@
                     <p class="mb-0">© {{ date('Y') }} {{ config('app.name', 'Laravel') }}. All Rights Reserved.</p>
                 </div>
                 <div class="col-auto">
-                    <p class="mb-0">Made by <span class="text-primary-600">{{ config('app.name', 'Laravel') }}</span></p>
+                    <p class="mb-0">Made by <span class="text-primary-600">Designs365</span></p>
                 </div>
             </div>
         </footer>
@@ -349,7 +369,7 @@
     <script>
         $(document).ready(function(){
             if($('#dataTable').length != 0){
-                let table = new DataTable('#dataTable');
+                var table = $('#dataTable').DataTable({order:[[0,"desc"]]});
             }
         });
     </script>
