@@ -15,7 +15,11 @@
         <li class="fw-medium">Event - {{ $data->name }}</li>
     </ul>
 </div>
-
+@if(session()->has('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}
+    </div>
+@endif
 <div class="row gy-4">
     <div class="col-lg-3">
         <div class="user-grid-card position-relative border radius-16 overflow-hidden bg-base h-100">
@@ -44,6 +48,18 @@
                         <li class="d-flex align-items-center gap-1 mb-12">
                             <span class="w-40 text-md fw-semibold text-primary-light"> Total Items</span>
                             <span class="w-60 text-secondary-light fw-medium">: {{ $data->event_items->count() }}</span>
+                        </li>
+                        <li>
+                            <form action="{{ route('event.update', $data->id) }}" method="post">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="step" value="0">
+                                <select name="status" id="status" class="form-control">
+                                    <option value="0" {{ $data->status == 0 ? 'selected' : '' }}>In Progress</option>
+                                    <option value="1" {{ $data->status == 1 ? 'selected' : '' }}>Completed</option>
+                                </select>
+                                <button class="btn btn-primary btn-sm mt-10" type="submit">Update Status</button>
+                            </form>
                         </li>
                     </ul>
                 </div>
@@ -93,47 +109,55 @@
                         </table>
                     </div>
                     <div class="tab-pane fade" id="pills-change-passwork" role="tabpanel" aria-labelledby="pills-change-passwork-tab" tabindex="0">
-                        @foreach($data->event_items as $key => $value)
-                        <div class="row mb-20">
-                            <div class="col-md-4">
-                                <label for="">Item</label>
-                                <input type="text" class="form-control" name="" value="{{ $value->item->name }}" readonly>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Condition</label>
-                                <select name="" id="" class="form-control">
-                                    <option value="">Select Condition</option>
-                                    <option value="0">Good Condition</option>
-                                    <option value="1">Damaged</option>
-                                    <option value="2">Lost</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="">Quantity</label>
-                                <input type="number" name="quantity" id="quantity" class="form-control" value="1">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="form-group mt-3">
-                                    <label for="notes">Notes</label>
-                                    <input type="text" name="notes" id="notes" class="form-control">
+                        <form action="{{ route('event.update', $data->id) }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            @foreach($data->event_items as $key => $value)
+                            <input type="hidden" name="step" value="1">
+                            <div class="row mb-20">
+                                <div class="col-md-4">
+                                    <label for="">Item</label>
+                                    <input type="text" class="form-control" name="" value="{{ $value->item->name }}" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">Condition</label>
+                                    <select name="condition[{{$value->id}}]" id="" class="form-control" required>
+                                        <option value="">Select Condition</option>
+                                        <option value="1" {{ $value->condition == 1 ? 'selected' : '' }}>Good Condition</option>
+                                        <option value="2" {{ $value->condition == 2 ? 'selected' : '' }}>Damaged</option>
+                                        <option value="3" {{ $value->condition == 3 ? 'selected' : '' }}>Lost</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="">Quantity ( Total {{ $value->quantity }} )</label>
+                                    <input type="number" name="quantity[{{$value->id}}]" id="quantity" class="form-control" max="{{ $value->quantity }}" value="{{ $value->condition_quantity }}" onfocusout="checkQuantity(this)">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group mt-3">
+                                        <label for="notes">Notes</label>
+                                        <input type="text" name="notes[{{$value->id}}]" id="notes" class="form-control" value="{{ $value->notes }}">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group mt-3">
+                                        <label for="">Image</label>
+                                        <input type="file" name="image[{{$value->id}}]" id="image" class="form-control">
+                                        @if($value->image != null)
+                                        <a href="{{ asset($value->image) }}" target="_blank" style="font-size: 14px;color: #0d6efd;">Click here to view image</a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-20">
+                                    <hr>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="form-group mt-3">
-                                    <label for="">Image</label>
-                                    <input type="file" name="image" id="image" class="form-control">
+                            @endforeach
+                            <div class="row">
+                                <div class="col-md-12 text-end">
+                                    <button class="btn btn-primary" type="submit">Update Items</button>
                                 </div>
                             </div>
-                            <div class="col-md-12 mt-20">
-                                <hr>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div class="row">
-                            <div class="col-md-12 text-end">
-                                <button class="btn btn-primary">Update Items</button>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -144,4 +168,15 @@
 @endsection
 
 @push('scripts')
+<script>
+    function checkQuantity(a){
+		var $this = $(a);
+        var val = parseInt($this.val());
+        var max = parseInt($this.attr("max"));
+        if (val > max){
+            $this.val(max);
+        }
+
+	}
+</script>
 @endpush

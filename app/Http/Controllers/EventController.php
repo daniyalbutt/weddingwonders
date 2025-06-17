@@ -10,6 +10,7 @@ use App\Models\Template;
 use App\Models\TemplateItems;
 use Illuminate\Http\Request;
 use Auth;
+use App\Notifications\AssignEvent;
 
 class EventController extends Controller
 {
@@ -80,7 +81,7 @@ class EventController extends Controller
 
         $old_items = $request->old_items;
         $old_quantity = $request->old_quantity;
-        dd($old_items);
+
         if($old_items != null){
             foreach($old_items as $key => $value){
                 $event_item = new EventsItems();
@@ -108,6 +109,14 @@ class EventController extends Controller
                 $template_item->save();
             }
         }
+        $messages["id"] = $data->id;
+        $messages["url"] = route('event.show', $data->id);
+        $messages["title"] = 'Event Assigned';
+        $messages["message"] = "{$data->name} - has assigned to you";
+
+        
+        $user = User::find($data->user_id);
+        $user->notify(new AssignEvent($messages));
 
         return redirect()->back()->with('success', 'Event Created Successfully');
     }
@@ -115,9 +124,10 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($id)
     {
-        //
+        $data = Event::find($id);
+        return view('event.show', compact('data'));
     }
 
     /**

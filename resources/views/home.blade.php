@@ -165,8 +165,8 @@
                                         <td>{{ $value->user->name }}</td>
                                         <td><span class="badge text-sm fw-semibold rounded-pill {{ $value->get_status_class() }} px-20 py-9 radius-4 text-white badge-sm">{{ $value->get_status() }}</span></td>
                                         <td class="text-center">
-                                            <a href="{{ route('events.edit', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                                <iconify-icon icon="lucide:edit"></iconify-icon>
+                                            <a href="{{ route('events.show', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                                <iconify-icon icon="lucide:eye"></iconify-icon>
                                             </a>
                                         </td>
                                     </tr>
@@ -178,6 +178,56 @@
                 </div>
             </div>
             @endcan
+        </div>
+    </div>
+</div>
+@elseif(Auth::user()->hasRole('employee'))
+<div class="row gy-4">
+    <div class="col-12">
+        <div class="card radius-12">
+            <div class="card-body p-16">
+                <div class="row gy-4">
+                    <div class="col-xxl-4 col-xl-4 col-sm-6">
+                        <div class="px-20 py-16 shadow-none radius-8 h-100 gradient-deep-1 left-line line-bg-primary position-relative overflow-hidden">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                                <div>
+                                    <span class="mb-2 fw-medium text-secondary-light text-md">Total Assigned Events</span>
+                                    <h6 class="fw-semibold mb-1">{{ $assigned_event }}</h6>
+                                </div>
+                                <span class="w-44-px h-44-px radius-8 d-inline-flex justify-content-center align-items-center text-2xl mb-12 bg-primary-100 text-primary-600">
+                                    <i class="ri-list-view"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-sm-6">
+                        <div class="px-20 py-16 shadow-none radius-8 h-100 gradient-deep-2 left-line line-bg-lilac position-relative overflow-hidden">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                                <div>
+                                    <span class="mb-2 fw-medium text-secondary-light text-md">Total In progress Events</span>
+                                    <h6 class="fw-semibold mb-1">{{ $assigned_event_inprogress }}</h6>
+                                </div>
+                                <span class="w-44-px h-44-px radius-8 d-inline-flex justify-content-center align-items-center text-2xl mb-12 bg-lilac-200 text-lilac-600">
+                                    <i class="ri-file-settings-fill"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4 col-xl-4 col-sm-6">
+                        <div class="px-20 py-16 shadow-none radius-8 h-100 gradient-deep-3 left-line line-bg-success position-relative overflow-hidden">
+                            <div class="d-flex flex-wrap align-items-center justify-content-between gap-1 mb-8">
+                                <div>
+                                    <span class="mb-2 fw-medium text-secondary-light text-md">Total Completed Events</span>
+                                    <h6 class="fw-semibold mb-1">{{ $assigned_event_completed }}</h6>
+                                </div>
+                                <span class="w-44-px h-44-px radius-8 d-inline-flex justify-content-center align-items-center text-2xl mb-12 bg-success-200 text-success-600">
+                                    <i class="ri-check-double-fill"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

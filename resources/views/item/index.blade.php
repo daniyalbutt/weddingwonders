@@ -36,6 +36,7 @@
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Remaining Quantity</th>
                     <th scope="col">Storage Location</th>
                     <th scope="col">Shelf Number</th>
                     <th scope="col">Row Number</th>
@@ -49,6 +50,7 @@
                     <td><img src="{{ asset($value->image) }}" alt="" width="60"></td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->quantity }}</td>
+                    <td>{{ $value->total_quantity() }}</td>
                     <td>{{ $value->location }}</td>
                     <td>{{ $value->shelf }}</td>
                     <td>{{ $value->row }}</td>

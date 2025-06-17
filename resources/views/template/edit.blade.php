@@ -187,9 +187,8 @@
 
 	function checkQuantity(a){
 		var $this = $(a);
-        var val = $this.val();
-        var max = $this.attr("max");
-        var min = $this.attr("min");
+        var val = parseInt($this.val());
+        var max = parseInt($this.attr("max"));
 
         if (max > 0 && val > max){
             $this.val(max);

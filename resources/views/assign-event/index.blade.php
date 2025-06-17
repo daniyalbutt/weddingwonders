@@ -43,7 +43,7 @@
             <tbody>
                 @foreach($data as $key => $value)
                 <tr class="hover-primary">
-                    <td>#{{ $value->id }}</td>
+                    <td>{{ $value->id }}</td>
                     <td>{{ $value->name }}</td>
                     <td>{{ $value->venue }}</td>
                     <td>{{ $value->event_date }}</td>

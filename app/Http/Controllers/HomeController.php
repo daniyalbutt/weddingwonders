@@ -7,6 +7,7 @@ use DB;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Item;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,9 @@ class HomeController extends Controller
         $portfolio_count = DB::table('portfolios')->where('status', 0)->count();
         $item_list = Item::orderBy('updated_at', 'desc')->get();
         $event_list = Event::orderBy('updated_at', 'desc')->get();
-        return view('home', compact('item_count', 'user_count', 'event_count', 'portfolio_count', 'item_list', 'event_list'));
+        $assigned_event = Event::where('user_id', Auth::user()->id)->count();
+        $assigned_event_inprogress = Event::where('user_id', Auth::user()->id)->where('status', 0)->count();
+        $assigned_event_completed = Event::where('user_id', Auth::user()->id)->where('status', 1)->count();
+        return view('home', compact('item_count', 'user_count', 'event_count', 'portfolio_count', 'item_list', 'event_list', 'assigned_event', 'assigned_event_inprogress', 'assigned_event_completed'));
     }
 }

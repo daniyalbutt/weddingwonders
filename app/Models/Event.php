@@ -20,12 +20,16 @@ class Event extends Model
     public function get_status(){
         if($this->status == 0){
             return 'In progress';
+        }else{
+            return 'Completed';
         }
     }
 
     public function get_status_class(){
         if($this->status == 0){
             return 'bg-primary-600';
+        }else{
+            return 'bg-success-600';
         }
     }
 
