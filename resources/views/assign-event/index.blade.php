@@ -26,42 +26,42 @@
             {{ session()->get('success') }}
         </div>
         @endif
-        <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
-            <thead>
-                <tr>
-                    <th scope="col">
-                        SNO
-                    </th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Venue</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">User</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($data as $key => $value)
-                <tr class="hover-primary">
-                    <td>{{ $value->id }}</td>
-                    <td>{{ $value->name }}</td>
-                    <td>{{ $value->venue }}</td>
-                    <td>{{ $value->event_date }}</td>
-                    <td>{{ $value->user->name }}</td>
-                    <td><span class="badge text-sm fw-semibold rounded-pill {{ $value->get_status_class() }} px-20 py-9 radius-4 text-white badge-sm">{{ $value->get_status() }}</span></td>
-                    <td>
-                        @can('show assign-event')
-                        <div class="d-flex">
-                            <a href="{{ route('event.show', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
-                                <iconify-icon icon="lucide:eye"></iconify-icon>
-                            </a>
-                        </div>
-                        @endcan
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table bordered-table mb-0" id="dataTable" data-page-length='10'>
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            SNO
+                        </th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Venue</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $key => $value)
+                    <tr class="hover-primary">
+                        <td>{{ $value->id }}</td>
+                        <td>{{ $value->name }}</td>
+                        <td>{{ $value->venue }}</td>
+                        <td>{{ $value->event_date }}</td>
+                        <td><span class="badge text-sm fw-semibold rounded-pill {{ $value->get_status_class() }} px-20 py-9 radius-4 text-white badge-sm">{{ $value->get_status() }}</span></td>
+                        <td>
+                            @can('show assign-event')
+                            <div class="d-flex">
+                                <a href="{{ route('event.show', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="lucide:eye"></iconify-icon>
+                                </a>
+                            </div>
+                            @endcan
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

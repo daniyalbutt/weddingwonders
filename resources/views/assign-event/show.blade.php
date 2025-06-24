@@ -83,30 +83,32 @@
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade active show" id="pills-edit-profile" role="tabpanel" aria-labelledby="pills-edit-profile-tab" tabindex="0">
-                        <table class="table bordered-table mb-0" id="dataTable" data-page-length='100'>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">QTY</th>
-                                    <th scope="col">Location</th>
-                                    <th scope="col">Shelf</th>
-                                    <th scope="col">Row</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($data->event_items as $key => $value)
-                                <tr>
-                                    <td>
-                                        <a href="{{ asset($value->item->image) }}" target="_blank"><img src="{{ asset($value->item->image) }}" alt="" width="20"></a>
-                                        {{ $value->item->name }}</td>
-                                    <td>{{ $value->quantity }}</td>
-                                    <td>{{ $value->item->location }}</td>
-                                    <td>{{ $value->item->shelf }}</td>
-                                    <td>{{ $value->item->row }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table bordered-table mb-0" id="dataTable" data-page-length='100'>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">QTY</th>
+                                        <th scope="col">Location</th>
+                                        <th scope="col">Shelf</th>
+                                        <th scope="col">Row</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data->event_items as $key => $value)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ asset($value->item->image) }}" target="_blank"><img src="{{ asset($value->item->image) }}" alt="" width="20"></a>
+                                            {{ $value->item->name }}</td>
+                                        <td>{{ $value->quantity }}</td>
+                                        <td>{{ $value->item->location }}</td>
+                                        <td>{{ $value->item->shelf }}</td>
+                                        <td>{{ $value->item->row }}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="tab-pane fade" id="pills-change-passwork" role="tabpanel" aria-labelledby="pills-change-passwork-tab" tabindex="0">
                         <form action="{{ route('event.update', $data->id) }}" method="post" enctype="multipart/form-data">
