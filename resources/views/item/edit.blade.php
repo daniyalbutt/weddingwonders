@@ -55,25 +55,38 @@
 		                            <input type="text" class="form-control" name="location" value="{{ old('location', $data->location) }}" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Shelf Number</label>
 		                            <input type="text" class="form-control" name="shelf" value="{{ old('location', $data->shelf) }}" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Row Number</label>
 		                            <input type="text" class="form-control" name="row" value="{{ old('location', $data->row) }}" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Image</label>
 		                            <input type="file" class="form-control" name="image">
 									<img src="{{ asset($data->image) }}" alt="" width="120">
 		                        </div>
 		                    </div>
+							<div class="col-md-3">
+								<div class="form-group">
+		                            <label class="form-label">Category</label>
+									<select class="form-control" name="category" id="category" required>
+										<option value="">Select Category</option>
+										<option value="Flowers" {{ $data->category == 'Flowers' ? 'selected' : '' }}>Flowers</option>
+										<option value="Linens" {{ $data->category == 'Linens' ? 'selected' : '' }}>Linens</option>
+										<option value="Drapes" {{ $data->category == 'Drapes' ? 'selected' : '' }}>Drapes</option>
+										<option value="Centerpieces" {{ $data->category == 'Centerpieces' ? 'selected' : '' }}>Centerpieces</option>
+										<option value="Stage" {{ $data->category == 'Stage' ? 'selected' : '' }}>Stage</option>
+									</select>
+								</div>
+							</div>
 							<div class="col-12">
 								<button type="submit" class="btn btn-primary-600 btn-sm">Update Item</button>
 							</div>

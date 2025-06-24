@@ -54,24 +54,37 @@
 		                            <input type="text" class="form-control" name="location" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Shelf Number</label>
 		                            <input type="text" class="form-control" name="shelf" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Row Number</label>
 		                            <input type="text" class="form-control" name="row" required>
 		                        </div>
 		                    </div>
-							<div class="col-md-4">
+							<div class="col-md-3">
 		                        <div class="form-group">
 		                            <label class="form-label">Image</label>
 		                            <input type="file" class="form-control" name="image" required>
 		                        </div>
 		                    </div>
+							<div class="col-md-3">
+								<div class="form-group">
+		                            <label class="form-label">Category</label>
+									<select class="form-control" name="category" id="category" required>
+										<option value="">Select Category</option>
+										<option value="Flowers">Flowers</option>
+										<option value="Linens">Linens</option>
+										<option value="Drapes">Drapes</option>
+										<option value="Centerpieces">Centerpieces</option>
+										<option value="Stage">Stage</option>
+									</select>
+								</div>
+							</div>
 							<div class="col-12">
 								<button type="submit" class="btn btn-primary-600 btn-sm">Save Item</button>
 							</div>

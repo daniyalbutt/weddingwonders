@@ -35,7 +35,7 @@
                             SNO
                         </th>
                         <th scope="col">Image</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Name/Category</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Remaining Quantity</th>
                         <th scope="col">Storage Location</th>
@@ -48,8 +48,8 @@
                     @foreach($data as $key => $value)
                     <tr class="hover-primary">
                         <td>#{{ $value->id }}</td>
-                        <td><img src="{{ asset($value->image) }}" alt="" width="60"></td>
-                        <td>{{ $value->name }}</td>
+                        <td><img src="{{ asset($value->image) }}" alt="{{ $value->name }}" width="60"></td>
+                        <td>{{ $value->name }}<br><strong>{{ $value->category }}</strong></td>
                         <td>{{ $value->quantity }}</td>
                         <td>{{ $value->total_quantity() }}</td>
                         <td>{{ $value->location }}</td>

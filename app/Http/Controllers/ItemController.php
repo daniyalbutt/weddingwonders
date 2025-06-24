@@ -53,6 +53,7 @@ class ItemController extends Controller
         $data->location = $request->location;
         $data->shelf = $request->shelf;
         $data->row = $request->row;
+        $data->category = $request->category;
         $data->user_id = Auth::user()->id;
         if($request->hasFile('image')){
             $imageName = time().'.'.$request->image->extension();
@@ -98,6 +99,7 @@ class ItemController extends Controller
         $data->location = $request->location;
         $data->shelf = $request->shelf;
         $data->row = $request->row;
+        $data->category = $request->category;
         if($request->hasFile('image')){
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images'), $imageName);
