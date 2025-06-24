@@ -10,6 +10,7 @@ use App\Http\Controllers\PortfolioController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AssignEventController;
 use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,8 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('profile', [HomeController::class, 'profile'])->name('profile');
+    Route::put('profile-update', [HomeController::class, 'profileUpdate'])->name('profile.update');
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('venues', VenueController::class);

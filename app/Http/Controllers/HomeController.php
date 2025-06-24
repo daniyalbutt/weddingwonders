@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Item;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -40,5 +41,30 @@ class HomeController extends Controller
         $assigned_event_inprogress = Event::where('user_id', Auth::user()->id)->where('status', 0)->count();
         $assigned_event_completed = Event::where('user_id', Auth::user()->id)->where('status', 1)->count();
         return view('home', compact('item_count', 'user_count', 'event_count', 'portfolio_count', 'item_list', 'event_list', 'assigned_event', 'assigned_event_inprogress', 'assigned_event_completed'));
+    }
+
+    public function profile(){
+        $data = Auth::user();
+        return view('profile', compact('data'));
+    }
+
+    public function profileUpdate(Request $request){
+        $request->validate([
+            'name' => 'required',
+        ]);
+        if($request->password != null){
+            $request->validate([
+                'password' => 'required',
+            ]);
+        }
+        $data = User::find(Auth::user()->id);
+        $data->name = $request->name;
+
+        if($request->password != null){
+            $data->password = Hash::make($request->password);
+        }
+
+        $data->save();
+        return redirect()->back()->with('success', 'Profile Updated Successfully');
     }
 }

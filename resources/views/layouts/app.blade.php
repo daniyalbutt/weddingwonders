@@ -270,12 +270,12 @@
                                     </button>
                                 </div>
                                 <ul class="to-top-list">
-                                    <!-- <li>
-                                        <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3" href="view-profile.html">
+                                    <li>
+                                        <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-primary d-flex align-items-center gap-3" href="{{ route('profile') }}">
                                             <iconify-icon icon="solar:user-linear" class="icon text-xl"></iconify-icon>
                                             My Profile
                                         </a>
-                                    </li> -->
+                                    </li>
                                     <li>
                                         <a class="dropdown-item text-black px-0 py-8 hover-bg-transparent hover-text-danger d-flex align-items-center gap-3" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                             <iconify-icon icon="lucide:power" class="icon text-xl"></iconify-icon>
