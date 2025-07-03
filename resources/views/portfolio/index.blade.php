@@ -53,6 +53,9 @@
                         <td>{{ $value->venue }}</td>
                         <td>
                             <div class="d-flex">
+                                <a href="{{ route('portfolios.show', $value->id) }}" class="me-10 w-32-px h-32-px bg-info-focus text-info-main rounded-circle d-inline-flex align-items-center justify-content-center">
+                                    <iconify-icon icon="lucide:eye"></iconify-icon>
+                                </a>
                                 @can('edit portfolio')
                                 <a href="{{ route('portfolios.edit', $value->id) }}" class="me-10 w-32-px h-32-px bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center">
                                     <iconify-icon icon="lucide:edit"></iconify-icon>

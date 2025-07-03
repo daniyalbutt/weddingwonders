@@ -79,9 +79,10 @@ class PortfolioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Portfolio $portfolio)
+    public function show($id)
     {
-        //
+        $data = Portfolio::find($id);
+        return view('portfolio.show', compact('data'));
     }
 
     /**
