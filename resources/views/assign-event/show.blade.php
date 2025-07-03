@@ -84,7 +84,7 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade active show" id="pills-edit-profile" role="tabpanel" aria-labelledby="pills-edit-profile-tab" tabindex="0">
                         <div class="table-responsive">
-                            <table class="table bordered-table mb-0" id="dataTable" data-page-length='100'>
+                            <table class="table bordered-table mb-0" id="item-dataTable" data-page-length='100'>
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
@@ -98,6 +98,7 @@
                                     @foreach($data->event_items as $key => $value)
                                     <tr>
                                         <td>
+                                            <input type="checkbox" value="{{ $value->id }}" {{ $value->checklist == 1 ? 'checked' : '' }} class="form-check-input" style="margin-top: 8px;margin-right: 10px;">
                                             <a href="{{ asset($value->item->image) }}" target="_blank"><img src="{{ asset($value->item->image) }}" alt="" width="20"></a>
                                             {{ $value->item->name }}</td>
                                         <td>{{ $value->quantity }}</td>
@@ -180,5 +181,40 @@
         }
 
 	}
+
+    $('#item-dataTable tr').click(function(){
+        let isChecked = $(this).find("input[type='checkbox']");
+        if($(isChecked).is(":checked")){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('checked.item') }}",
+                data: { id: $(isChecked).val()},
+                success:function(data) {
+                    console.log(data);
+                }
+            });
+            isChecked.prop('checked', false);
+        }else{
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('checked.item') }}",
+                data: { id: $(isChecked).val()},
+                success:function(data) {
+                    console.log(data);
+                }
+            });
+            isChecked.prop('checked', true);
+        }
+    })
 </script>
 @endpush

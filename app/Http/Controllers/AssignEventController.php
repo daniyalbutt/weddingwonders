@@ -149,4 +149,16 @@ class AssignEventController extends Controller
         
     }
 
+    public function checkedItems(Request $request){
+        $id = $request->id;
+        $data = EventsItems::find($id);
+        if($data->checklist == 0){
+            $data->checklist = 1;
+        }else{
+            $data->checklist = 0;
+        }
+        $data->save();
+        return response()->json(['success' => true]);
+    }
+
 }

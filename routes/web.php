@@ -45,5 +45,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('item/list', [ItemController::class, 'itemList'])->name('item.list');
     Route::post('event-item/delete', [EventController::class, 'deleteEventItem'])->name('event-item.delete');
     Route::resource('assign/event', AssignEventController::class);
+    Route::post('checked-items', [AssignEventController::class, 'checkedItems'])->name('checked.item');
     Route::post('template-item/delete', [TemplateController::class, 'deleteTemplateItem'])->name('template-item.delete');
 });
