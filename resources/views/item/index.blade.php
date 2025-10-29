@@ -36,11 +36,11 @@
                         </th>
                         <th scope="col">Image</th>
                         <th scope="col">Name/Category</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Remaining Quantity</th>
-                        <th scope="col">Storage Location</th>
-                        <th scope="col">Shelf Number</th>
-                        <th scope="col">Row Number</th>
+                        <th scope="col">QTY</th>
+                        <th scope="col">Remaining QTY</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Shelf</th>
+                        <th scope="col">Row</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>

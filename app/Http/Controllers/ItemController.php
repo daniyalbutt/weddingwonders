@@ -6,6 +6,8 @@ use App\Models\Item;
 use App\Models\EventsItems;
 use Illuminate\Http\Request;
 use Auth;
+use App\Imports\ItemsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ItemController extends Controller
 {
@@ -22,6 +24,13 @@ class ItemController extends Controller
      */
     public function index()
     {
+
+        $filePath = public_path('Inventory_Wedding-Wonders.xlsx');
+        if (!file_exists($filePath)) {
+            return back()->with('error', '❌ Excel file not found in public folder!');
+        }
+        Excel::import(new ItemsImport, $filePath);
+
         $data = Item::where('status', 0)->get();
         return view('item.index', compact('data'));
     }
@@ -140,4 +149,5 @@ class ItemController extends Controller
         return response()->json(['status' => true, 'qty' => $total_qty]);
         
     }
+
 }

@@ -9,6 +9,21 @@ class Item extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'quantity',
+        'location',
+        'shelf',
+        'row',
+        'image',
+        'status',
+        'user_id',
+        'venue_id',
+        'category',
+        'created_at',
+        'updated_at',
+    ];
+
     public function user(){
         return $this->hasOne(User::class, 'id', 'user_id');
     }
